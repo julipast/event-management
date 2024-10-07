@@ -13,11 +13,11 @@ class Attendee extends Model
     protected $fillable = ['user_id'];
     public function user(): BelongsTo
     {
-        $this->belongsTo(User::class);
+        return $this->belongsTo(User::class);
     }
 
     public function event(): BelongsTo
     {
-        $this->belongsTo(Event::class);
+        return $this->belongsTo(Event::class);
     }
 }
