@@ -20,7 +20,6 @@ class EventController extends Controller
     {
         $query = $this->loadRelationships(Event::query());
 
-
         return EventResource::collection(
             $query->latest()->paginate()
         );
