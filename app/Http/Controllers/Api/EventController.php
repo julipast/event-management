@@ -20,6 +20,8 @@ class EventController extends Controller
      */
     public function index()
     {
+        Gate::authorize('viewAny', Event::class);
+
         $query = $this->loadRelationships(Event::query());
 
         return EventResource::collection(
@@ -33,6 +35,8 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
+
+        Gate::authorize('create', Event::class);
 
         $event = Event::create([
             ...$request->validate([
@@ -52,6 +56,8 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
+        Gate::authorize('view', $event);
+
         $event->load('user', 'attendees');
         return new EventResource($this->loadRelationships($event));
     }
@@ -65,7 +71,8 @@ class EventController extends Controller
 //            abort(403, 'You are not authorized to update events.');
 //        }
 
-        Gate::authorize('update-event', $event);
+//        Gate::authorize('update-event', $event);
+        Gate::authorize('update', $event);
 
         $event->update(
             $request->validate([
@@ -83,6 +90,8 @@ class EventController extends Controller
      */
     public function destroy(Event $event)
     {
+        Gate::authorize('delete',  $event);
+
         $event->delete();
 
         return response()->json(null, 204);
