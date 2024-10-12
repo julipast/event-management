@@ -18,7 +18,7 @@ Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanct
 
 
 Route::get('events', [EventController::class, 'index']);
-Route::get('events/{event}', [EventController::class, 'show']);
+Route::get('events/{event}', [EventController::class, 'show'])->name('events.show');
 
 Route::get('events/{event}/attendees', [AttendeeController::class, 'index']);
 Route::get('events/{event}/attendees/{attendee}', [AttendeeController::class, 'show']);
